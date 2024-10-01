@@ -2,6 +2,7 @@
 import ProductDetails from './ProductDetails.vue'
 import { ref, computed } from 'vue'
 import ReviewList from './ReviewList.vue'
+import ReviewForm from './ReviewForm.vue'
 
 const props = defineProps({
   premium: {
@@ -10,11 +11,14 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['add-to-cart', 'remove-from-cart'])
+// const emit = defineEmits(['add-to-cart', 'remove-from-cart'])
+
+const count = ref(0)
 
 const product = ref('Socks')
-const brand = ref('Vue Mastery')
+const brand = ref('JVM Fashion')
 const selectedVariant = ref(0)
+
 const details = ref(['50% cotton', '30% wool', '20% polyester'])
 const variants = ref([
   { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 50 },
@@ -23,11 +27,13 @@ const variants = ref([
 const reviews = ref([])
 
 const addToCart = () => {
-  emit('add-to-cart', variants.value[selectedVariant.value].id)
+  count.value++
 }
 
 const removeFromCart = () => {
-  emit('remove-from-cart', variants.value[selectedVariant.value].id)
+  if (count.value > 0) {
+    count.value--
+  }
 }
 
 const updateVariant = (index) => {
@@ -59,9 +65,12 @@ const shipping = computed(() => {
   <div class="product-display">
     <div class="product-container">
       <div class="product-image">
-        <img width="100px" height="100px" :src="image" />
+        <img :src="image" />
       </div>
       <div class="product-info">
+        <div class="cart">
+          <p>Cart({{ count }})</p>
+        </div>
         <h1>{{ title }}</h1>
         <p v-if="inStock">In Stock</p>
         <p v-else>Out of Stock</p>
@@ -75,22 +84,24 @@ const shipping = computed(() => {
           :style="{ backgroundColor: variant.color }"
         ></div>
 
-        <button
-          class="button"
-          :class="{ disabledButton: !inStock }"
-          :disabled="!inStock"
-          @click="addToCart"
-        >
-          Add to Cart
-        </button>
-        <button
-          class="button"
-          :class="{ disabledButton: !inStock }"
-          :disabled="!inStock"
-          @click="removeFromCart"
-        >
-          Remove from Cart
-        </button>
+        <div class="button-group">
+          <button
+            class="button"
+            :class="{ disabledButton: !inStock }"
+            :disabled="!inStock"
+            @click="addToCart"
+          >
+            Add to Cart
+          </button>
+          <button
+            class="button"
+            :class="{ disabledButton: !inStock }"
+            :disabled="!inStock"
+            @click="removeFromCart"
+          >
+            Remove from Cart
+          </button>
+        </div>
       </div>
     </div>
     <div>

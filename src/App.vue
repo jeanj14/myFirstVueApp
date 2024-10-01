@@ -8,12 +8,14 @@ import ProductDisplay from './components/ProductDisplay.vue'
 </script>
 
 <template>
+  <div class="nav-bar"></div>
   <header>
     <div class="">
       <!-- product details components
         -->
       <!-- <ProductDetails :details="['shoes', 'Shop']" /> -->
-      <ProductDisplay />
+      <ProductDisplay :premium="premium" @add-to-cart="updateCart" @remove-from-cart="removeById" />
+      <ProductDetails />
 
       <!-- <nav>
         <RouterLink to="/">Home</RouterLink>

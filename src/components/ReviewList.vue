@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps } from 'vue'
+import StarRating from 'vue-star-rating'
 
 const props = defineProps({
   reviews: {
