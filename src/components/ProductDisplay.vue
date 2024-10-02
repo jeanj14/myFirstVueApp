@@ -12,6 +12,7 @@ const props = defineProps({
 })
 
 // const emit = defineEmits(['add-to-cart', 'remove-from-cart'])
+const imageDirectory = '/images'
 
 const count = ref(0)
 
@@ -21,8 +22,8 @@ const selectedVariant = ref(0)
 
 const details = ref(['50% cotton', '30% wool', '20% polyester'])
 const variants = ref([
-  { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 50 },
-  { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 0 }
+  { id: 2234, color: 'green', image: `${imageDirectory}/socks_green.jpg`, quantity: 50 },
+  { id: 2235, color: 'blue', image: `${imageDirectory}/socks_blue.jpg`, quantity: 0 }
 ])
 const reviews = ref([])
 
